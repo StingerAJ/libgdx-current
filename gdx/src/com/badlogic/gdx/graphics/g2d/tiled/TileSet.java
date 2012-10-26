@@ -22,6 +22,7 @@ public class TileSet {
 	public int margin = 0, spacing = 0;
 	public String imageName;
 	public String name;
+	public String source;
 
 	/** Contains a Tiled Map tile set */
 	protected TileSet () {
@@ -37,5 +38,6 @@ public class TileSet {
 		this.spacing = set.spacing;
 		this.imageName = set.imageName;
 		this.name = set.name;
+		this.source = set.source;
 	}
 }

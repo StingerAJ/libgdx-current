@@ -46,7 +46,7 @@ public class TiledLoader {
 	/** Loads a TiledMap from a tmx file.
 	 * @param tmxFile The tmx file. NULL to force load from <code>tmxData</code>.
 	 * @param tmxData The tmx file's content. NULL to force load from <code>tmxFile</code>. */
-	private static TiledMap createMap (FileHandle tmxFile, String tmxData) {
+	private static TiledMap createMap(final FileHandle tmxFile, String tmxData) {
 		final TiledMap map;
 
 		map = new TiledMap();
@@ -60,6 +60,7 @@ public class TiledLoader {
 				boolean awaitingData = false;
 				TiledLayer currLayer;
 				int currLayerWidth = 0, currLayerHeight = 0;
+				boolean inTsx = false;
 				TileSet currTileSet;
 				TiledObjectGroup currObjectGroup;
 				TiledObject currObject;
@@ -100,7 +101,9 @@ public class TiledLoader {
 					}
 
 					if ("tileset".equals(name)) {
-						currTileSet = new TileSet();
+						// the tileset-element in tsx-files lack the firstgid-attribute, so keep it from the tmx
+						if (!inTsx)
+							currTileSet = new TileSet();
 						return;
 					}
 
@@ -161,6 +164,17 @@ public class TiledLoader {
 						if ("firstgid".equals(name)) {
 							currTileSet.firstgid = Integer.parseInt(value);
 							return;
+						}
+						if ("source".equals(name)) {
+							currTileSet.source = value;
+							String sourcePath = tmxFile.parent().path()+"/"+value;
+							try {
+								inTsx = true;
+								parse(Gdx.files.internal(sourcePath));
+								inTsx = false;
+							} catch (IOException e) {
+								throw new GdxRuntimeException("Error Parsing TMX file", e);
+							}
 						}
 						if ("tilewidth".equals(name)) {
 							currTileSet.tileWidth = Integer.parseInt(value);
@@ -344,7 +358,8 @@ public class TiledLoader {
 					}
 
 					if ("tileset".equals(element)) {
-						map.tileSets.add(currTileSet);
+						if (currTileSet != null)
+							map.tileSets.add(currTileSet);
 						currTileSet = null;
 						return;
 					}
