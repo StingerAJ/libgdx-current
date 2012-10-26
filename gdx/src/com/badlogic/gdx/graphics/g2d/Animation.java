@@ -81,7 +81,16 @@ public class Animation {
 		this.keyFrames = keyFrames;
 		this.playMode = NORMAL;
 	}
-
+	
+	/**
+	 * Returns the number of frames of this animation-instance.
+	 * 
+	 * @return the framecount
+	 */
+	public int getFrameCount() {
+		return keyFrames.length;
+	}
+		
 	/** Returns a {@link TextureRegion} based on the so called state time. This is the amount of seconds an object has spent in the
 	 * state this Animation instance represents, e.g. running, jumping and so on. The mode specifies whether the animation is
 	 * looping or not.
