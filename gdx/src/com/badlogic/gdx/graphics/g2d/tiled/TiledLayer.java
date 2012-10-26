@@ -22,13 +22,25 @@ import java.util.HashMap;
  * @author David Fraska */
 public class TiledLayer {
 	public String name;
-
+	
+	public boolean visible;
+	
+	public float opacity;
+	
 	/** Contains the layer properties with a key of the property name. */
 	public HashMap<String, String> properties = new HashMap<String, String>(0);
 
 	// public final int width, height;
 
-	/** Contains the tile ids, addressed as [row][column]. */
+	/** Constructs a new TiledLayer, used by {@link TiledLoader} */
+	TiledLayer () {
+		// layers are visible by default, aka there is no visible-attribute in the tmx-layer
+		visible = true;
+		// layers are opaque by default, aka there is no opacity-attribute in the tmx-layer
+		opacity = 1.0f;
+	}
+ 	
+ 	/** Contains the tile ids, addressed as [row][column]. */
 	public int[][] tiles;
 
 	public int getWidth () {
@@ -38,5 +50,9 @@ public class TiledLayer {
 
 	public int getHeight () {
 		return tiles.length;
+	}
+	
+	public String toString() {
+		return name;
 	}
 }
