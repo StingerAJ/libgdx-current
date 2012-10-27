@@ -27,28 +27,60 @@ public class MoveToAction extends TemporalAction {
 		startY = actor.getY();
 	}
 
+	public float getStartX () {
+		return startX;
+	}
+
+	public float getStartY () {
+		return startY;
+	}
+
+	public float getEndX () {
+		return endX;
+	}
+
+	public float getEndY () {
+		return endY;
+	}
+
+	/**
+	 * @deprecated use getEndX instead
+	 * @return
+	 */
+	public float getX () {
+		return endX;
+	}
+
+	/**
+	 * @deprecated use getEndY instead
+	 * @return
+	 */
+	public float getY () {
+		return endY;
+	}
+
+	public void setStartX (float startX) {
+		this.startX = startX;
+	}
+
+	public void setStartY (float startY) {
+		this.startY = startY;
+	}
+
+	public void setEndX (float endX) {
+		this.endX = endX;
+	}
+
+	public void setEndY (float endY) {
+		this.endY = endY;
+	}
+
 	protected void update (float percent) {
 		actor.setPosition(startX + (endX - startX) * percent, startY + (endY - startY) * percent);
 	}
 
 	public void setPosition (float x, float y) {
 		endX = x;
-		endY = y;
-	}
-
-	public float getX () {
-		return endX;
-	}
-
-	public void setX (float x) {
-		endX = x;
-	}
-
-	public float getY () {
-		return endY;
-	}
-
-	public void setY (float y) {
 		endY = y;
 	}
 }
