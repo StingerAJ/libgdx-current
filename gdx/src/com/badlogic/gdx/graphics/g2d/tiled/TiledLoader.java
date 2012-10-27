@@ -157,6 +157,14 @@ public class TiledLoader {
 						if ("name".equals(name)) {
 							currLayer.name = value;
 						}
+						if ("visible".equals(name)) {
+							// if the attribute is there, it only has the value 0 it seems
+							currLayer.visible = !"0".equals(value);
+						}
+						if ("opacity".equals(name)) {
+							// if the attribute is there, it only has the value 0 it seems
+							currLayer.opacity = Float.parseFloat(value);
+						}
 						return;
 					}
 
@@ -187,14 +195,6 @@ public class TiledLoader {
 						if ("name".equals(name)) {
 							currTileSet.name = value;
 							return;
-						}
-						if ("visible".equals(name)) {
-							// if the attribute is there, it only has the value 0 it seems
-							currLayer.visible = !"0".equals(value);
-						}
-						if ("opacity".equals(name)) {
-							// if the attribute is there, it only has the value 0 it seems
-							currLayer.opacity = Float.parseFloat(value);
 						}
 						if ("spacing".equals(name)) {
 							currTileSet.spacing = Integer.parseInt(value);
