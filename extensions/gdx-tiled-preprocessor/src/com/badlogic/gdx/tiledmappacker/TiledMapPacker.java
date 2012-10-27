@@ -42,6 +42,8 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.backends.lwjgl.LwjglFiles;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.g2d.tiled.TileAtlas;
 import com.badlogic.gdx.graphics.g2d.tiled.TileMapRenderer;
@@ -421,6 +423,7 @@ public class TiledMapPacker {
 		File inputDir = null;
 		File outputDir = null;
 
+		Gdx.files = new LwjglFiles();
 		Settings texturePackerSettings = new Settings();
 		
 		texturePackerSettings.padding = 2;
